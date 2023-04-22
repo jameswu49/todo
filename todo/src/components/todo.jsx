@@ -1,26 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaChevronDown } from "react-icons/fa";
 import List from './list';
 
+let nextId = 0;
 
 export default function ToDo() {
-    const [value, setValue] = useState([]);
-    const [input, setInput] = useState('');
-
-    let nextId = 0;
-
-    function handleKeypress(e) {
-        if (e.key === 'Enter') {
-            handleSubmit(e)
+    const [todos, setTodos] = useState(() => {
+        const savedTodos = localStorage.getItem('todos')
+        console.log(savedTodos)
+        if (savedTodos) {
+            return JSON.parse(savedTodos)
+        } else {
+            return [];
         }
-    }
+    })
+    const [todo, setTodo] = useState("");
+
+
+    console.log(todos)
 
     function handleSubmit(e) {
         e.preventDefault()
-        setValue([...value, { id: nextId++, item: input, checked: false }])
-        console.log(value)
-        setInput('')
+        if (todo !== "") {
+            setTodos([...todos, { id: nextId++, item: todo, checked: false }])
+        }
+        setTodo("")
     }
+
+    function handleInputChange(e) {
+        setTodo(e.target.value)
+    }
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos])
 
     return (
         <>
@@ -30,13 +43,12 @@ export default function ToDo() {
                         <span className="mx-2"><FaChevronDown /></span>
                         <input className="ml-3 focus:outline-none text-black" type="text"
                             placeholder="Enter Item"
-                            value={input}
-                            onChange={e => setInput(e.target.value)}
-                            onKeyPress={handleKeypress}
+                            value={todo}
+                            onChange={handleInputChange}
                         />
                     </div>
                 </form>
-                <List value={value} />
+                <List value={todos} />
             </section>
         </>
     );
