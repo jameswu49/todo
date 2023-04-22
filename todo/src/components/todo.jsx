@@ -7,7 +7,6 @@ let nextId = 0;
 export default function ToDo() {
     const [todos, setTodos] = useState(() => {
         const savedTodos = localStorage.getItem('todos')
-        console.log(savedTodos)
         if (savedTodos) {
             return JSON.parse(savedTodos)
         } else {
@@ -16,8 +15,9 @@ export default function ToDo() {
     })
     const [todo, setTodo] = useState("");
 
-
-    console.log(todos)
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -30,10 +30,6 @@ export default function ToDo() {
     function handleInputChange(e) {
         setTodo(e.target.value)
     }
-
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }, [todos])
 
     return (
         <>
@@ -48,7 +44,7 @@ export default function ToDo() {
                         />
                     </div>
                 </form>
-                <List value={todos} />
+                <List value={todos} todos={todos} setTodos={setTodos} />
             </section>
         </>
     );
