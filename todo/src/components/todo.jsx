@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { FaChevronDown } from "react-icons/fa";
 import List from './list';
 
-let nextId = 0;
-
 export default function ToDo() {
     const [todos, setTodos] = useState(() => {
         const savedTodos = localStorage.getItem('todos')
@@ -15,14 +13,24 @@ export default function ToDo() {
     })
     const [todo, setTodo] = useState("");
 
+
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos])
 
+    // check if there is anything in localstorage with an Id for it to continue
+    function checkID() {
+        const id = localStorage.getItem('todos')
+        if (id) {
+            const parsed = JSON.parse(id)
+            return parsed.length
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault()
         if (todo !== "") {
-            setTodos([...todos, { id: nextId++, item: todo, checked: false }])
+            setTodos([...todos, { id: checkID(), item: todo, checked: false }])
         }
         setTodo("")
     }
