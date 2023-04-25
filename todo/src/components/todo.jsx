@@ -41,7 +41,7 @@ export default function ToDo() {
 
     return (
         <>
-            <section className="flex flex-col border w-80 h-64">
+            <section className="flex flex-col border w-80 h-fit">
                 <form action="" onSubmit={handleSubmit}>
                     <div className="w-full border-b border-2 h-10 text-gray-300 flex items-center">
                         <span className="mx-2"><FaChevronDown /></span>

@@ -18,6 +18,18 @@ export default function List({ value, todos, setTodos }) {
         }, 1000);
     }
 
+    function handleClick(e) {
+        const userInput = prompt()
+        e.target.innerHTML = userInput
+        const updatedTodos = todos.map(todo => {
+            if (todo.id === parseInt(e.target.id)) {
+                return { ...todo, item: userInput }
+            }
+            return todo
+        })
+        setTodos(updatedTodos)
+    }
+
 
     function Input() {
         return (
@@ -27,7 +39,7 @@ export default function List({ value, todos, setTodos }) {
                         <span key={index} className={`w-6 h-6 border rounded-full mx-1 cursor-pointer flex justify-center items-center ${index} ${value.checked ? "bg-green-500" : ""}`} onClick={(e) => handleDeleteClick(todos, setTodos, index, value, e)}>
                             {value.checked && <FcCheckmark />}
                         </span>
-                        <li className={`focus:outline-none ml-4 text-black input ${value.checked ? "line-through" : ""}`}>{value.item} {index}</li>
+                        <li id={value.id} onClick={handleClick} className={`focus:outline-none ml-4 text-black input cursor-pointer ${value.checked ? "line-through" : ""}`}>{value.item}</li>
                     </div>
                 ))}
             </ul>
@@ -35,7 +47,9 @@ export default function List({ value, todos, setTodos }) {
     }
 
     return (
-        <Input />
+        <>
+            <Input />
+        </>
     )
 }
 
