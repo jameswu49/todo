@@ -19,8 +19,10 @@ export default function List({ value, todos, setTodos }) {
     }
 
     function handleClick(e) {
-        const userInput = prompt()
-        e.target.innerHTML = userInput
+        const userInput = prompt('Edit Item')
+        if (userInput === null || userInput === "") {
+            return
+        }
         const updatedTodos = todos.map(todo => {
             if (todo.id === parseInt(e.target.id)) {
                 return { ...todo, item: userInput }
