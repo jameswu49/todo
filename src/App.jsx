@@ -5,7 +5,10 @@ export default function App() {
     <>
       <section className="flex-col flex h-screen justify-center items-center">
         <Title />
-        <ToDo />
+        <div className="overflow-auto w-full flex justify-center">
+          <ToDo />
+        </div>
+
       </section>
     </>
   )
