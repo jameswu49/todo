@@ -1,5 +1,7 @@
+import '../styles.css'
+
 export default function Title() {
     return (
-        <h1 className="flex justify-center items-center">todos</h1>
+        <h1 className="flex justify-center items-center quicksand text-4xl mb-5 md:text-6xl">todos</h1>
     )
 }

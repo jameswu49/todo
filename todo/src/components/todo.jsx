@@ -41,11 +41,11 @@ export default function ToDo() {
 
     return (
         <>
-            <section className="flex flex-col border w-80 h-fit">
+            <section className="flex flex-col border w-80 h-fit md:w-[40%] md:text-xl">
                 <form action="" onSubmit={handleSubmit}>
-                    <div className="w-full border-b border-2 h-10 text-gray-300 flex items-center">
+                    <div className="w-full border-b border-2 h-10 text-gray-300 flex items-center lg:h-[3.5rem]">
                         <span className="mx-2"><FaChevronDown /></span>
-                        <input className="ml-3 focus:outline-none text-black" type="text"
+                        <input className="ml-3 focus:outline-none text-black w-full" type="text"
                             placeholder="Enter Item"
                             value={todo}
                             onChange={handleInputChange}

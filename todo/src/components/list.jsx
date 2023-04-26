@@ -35,7 +35,7 @@ export default function List({ value, todos, setTodos }) {
         return (
             <ul>
                 {value.map((value, index) => (
-                    <div className="w-full border-b border-2 h-10 text-gray-300 flex items-center">
+                    <div className="w-full border-b border-2 h-10 text-gray-300 flex items-center md:h-[3.5rem] md:text-xl">
                         <span key={index} className={`w-6 h-6 border rounded-full mx-1 cursor-pointer flex justify-center items-center ${index} ${value.checked ? "bg-green-500" : ""}`} onClick={(e) => handleDeleteClick(todos, setTodos, index, value, e)}>
                             {value.checked && <FcCheckmark />}
                         </span>
