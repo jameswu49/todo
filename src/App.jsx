@@ -8,7 +8,6 @@ export default function App() {
         <div className="overflow-auto w-full flex justify-center">
           <ToDo />
         </div>
-
       </section>
     </>
   )

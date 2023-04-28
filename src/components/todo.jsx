@@ -13,6 +13,8 @@ export default function ToDo() {
     })
     const [todo, setTodo] = useState("");
 
+    const [tag, setTag] = useState("")
+
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
@@ -30,13 +32,18 @@ export default function ToDo() {
     function handleSubmit(e) {
         e.preventDefault()
         if (todo !== "") {
-            setTodos([...todos, { id: checkID(), item: todo, checked: false }])
+            setTodos([...todos, { id: checkID(), item: todo, tag: tag, checked: false }])
         }
         setTodo("")
+        setTag("")
     }
 
     function handleInputChange(e) {
         setTodo(e.target.value)
+    }
+
+    function handleTagChange(e) {
+        setTag(e.target.value)
     }
 
     return (
@@ -45,14 +52,20 @@ export default function ToDo() {
                 <form action="" onSubmit={handleSubmit}>
                     <div className="w-full border-b border-2 h-10 text-gray-300 flex items-center lg:h-[3.5rem]">
                         <span className="mx-2"><FaChevronDown /></span>
-                        <input className="ml-3 focus:outline-none text-black w-full" type="text"
+                        <input className="ml-3 focus:outline-none text-black w-2/4" type="text"
                             placeholder="Enter Item"
                             value={todo}
                             onChange={handleInputChange}
                         />
+                        <input className='w-2/4 focus:outline-none' type="text"
+                            placeholder='Add a tag'
+                            value={tag}
+                            onChange={handleTagChange}
+                        />
                     </div>
+                    <button className='hidden' type='submit'>submit</button>
                 </form>
-                <List value={todos} todos={todos} setTodos={setTodos} />
+                <List value={todos} todos={todos} setTodos={setTodos} setTag={setTag} />
             </section>
         </>
     );

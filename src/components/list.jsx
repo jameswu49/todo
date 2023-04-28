@@ -1,7 +1,7 @@
 import { FcCheckmark } from "react-icons/fc";
 import { useState } from "react";
 
-export default function List({ value, todos, setTodos }) {
+export default function List({ value, todos, setTodos, setTag }) {
     const [checked, setChecked] = useState(false)
 
     function handleDeleteClick(todos, setTodos, index, value, e) {
@@ -29,9 +29,31 @@ export default function List({ value, todos, setTodos }) {
             }
             return todo
         })
+        console.log(updatedTodos)
         setTodos(updatedTodos)
     }
 
+    function handleTagClick(e) {
+        e.stopPropagation()
+        const userInput = prompt('Edit Tag')
+        if (userInput === null || userInput === "") {
+            return
+        }
+        const updatedTags = todos.map(todo => {
+            if (todo.id === parseInt(e.target.id)) {
+                return { ...todo, tag: userInput }
+            }
+            return todo
+        })
+        setTodos(updatedTags)
+    }
+
+    function hashtag(value) {
+        if (value.tag !== "") {
+            return "#"
+        }
+        return ""
+    }
 
     function Input() {
         return (
@@ -41,7 +63,9 @@ export default function List({ value, todos, setTodos }) {
                         <span key={index} className={`w-6 h-6 border rounded-full mx-1 cursor-pointer flex justify-center items-center ${index} ${value.checked ? "bg-green-500" : ""}`} onClick={(e) => handleDeleteClick(todos, setTodos, index, value, e)}>
                             {value.checked && <FcCheckmark />}
                         </span>
-                        <li id={value.id} onClick={handleClick} className={`focus:outline-none ml-4 text-black input cursor-pointer ${value.checked ? "line-through" : ""}`}>{value.item}</li>
+                        <li id={value.id} onClick={handleClick} className={`focus:outline-none ml-4 text-black input cursor-pointer ${value.checked ? "line-through" : ""}`}>{value.item}
+                            <div id={value.id} className="text-sm" onClick={handleTagClick}>{hashtag(value) + value.tag}</div>
+                        </li>
                     </div>
                 ))}
             </ul>
