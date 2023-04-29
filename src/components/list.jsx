@@ -12,8 +12,14 @@ export default function List({ value, todos, setTodos, setTag }) {
 
         setTimeout(() => {
             const removeToDo = todos.filter((todo) => {
+                console.log(todo)
                 return todo.checked === false
             })
+
+            const removed = todos.filter((todo) => {
+                return todo.checked === true
+            })
+            localStorage.setItem('completed', JSON.stringify(removed));
             setTodos(removeToDo)
         }, 1000);
     }
@@ -29,7 +35,6 @@ export default function List({ value, todos, setTodos, setTag }) {
             }
             return todo
         })
-        console.log(updatedTodos)
         setTodos(updatedTodos)
     }
 

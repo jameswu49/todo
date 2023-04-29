@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { FaChevronDown } from "react-icons/fa";
 import List from './list';
 
-export default function ToDo() {
+export default function PersonalTab() {
     const [todos, setTodos] = useState(() => {
-        const savedTodos = localStorage.getItem('todos')
+        const savedTodos = localStorage.getItem('personal')
         if (savedTodos) {
             return JSON.parse(savedTodos)
         } else {
@@ -17,12 +17,12 @@ export default function ToDo() {
 
 
     useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
+        localStorage.setItem('personal', JSON.stringify(todos));
     }, [todos])
 
     // check if there is anything in localstorage with an Id for it to continue
     function checkID() {
-        const id = localStorage.getItem('todos')
+        const id = localStorage.getItem('personal')
         if (id) {
             const parsed = JSON.parse(id)
             return parsed.length
@@ -46,9 +46,10 @@ export default function ToDo() {
         setTag(e.target.value)
     }
 
+
     return (
         <>
-            <section id='todo' className="flex-col border w-80 h-fit tab md:w-[40%] md:text-xl block">
+            <section id='personal' className="flex-col border w-80 h-fit md:w-[40%] md:text-xl tab hidden">
                 <form action="" onSubmit={handleSubmit}>
                     <div className="w-full border-b border-2 h-10 text-gray-300 flex items-center lg:h-[3.5rem]">
                         <span className="mx-2"><FaChevronDown /></span>
